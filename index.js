@@ -1,13 +1,24 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const authRoutes = require("./routes/Auth");
 const { connectToDB } = require("./utils/database");
 dotenv.config();
 
 const app = express();
-
-connectToDB();
+app.use(express.json());
+app.use(
+  session({
+    secret: process.env.ENCRYPTION_KEY,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 const port = process.env.PORT;
+
+app.use("/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello");
