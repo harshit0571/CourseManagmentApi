@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  await connectToDB();
   try {
     const courses = await Course.find();
     res.json({ courses });
@@ -41,6 +42,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:courseId", async (req, res) => {
   const courseId = req.params.courseId;
+  await connectToDB();
 
   try {
     const course = await Course.findById(courseId);

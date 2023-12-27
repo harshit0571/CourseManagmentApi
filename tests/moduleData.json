@@ -1,0 +1,21 @@
+{
+  "moduleTitle": "week 1",
+  "videosArray": [
+    {
+      "title": "data types",
+      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+    },
+    {
+      "title": "arrays",
+      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+    },
+    {
+      "title": "string",
+      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+    },
+    {
+      "title": "objects",
+      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+    }
+  ]
+}
