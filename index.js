@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const authRoutes = require("./routes/Auth");
+const courseRoutes = require("./routes/Course");
 const { connectToDB } = require("./utils/database");
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(
 const port = process.env.PORT;
 
 app.use("/auth", authRoutes);
+app.use("/course", courseRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello");
