@@ -5,7 +5,7 @@ const session = require("express-session");
 const authRoutes = require("./routes/Auth");
 const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
-const { connectToDB } = require("./utils/database");
+const userRoutes = require("./routes/User");
 dotenv.config();
 
 const app = express();
@@ -23,6 +23,7 @@ const port = process.env.PORT;
 app.use("/auth", authRoutes);
 app.use("/course", courseRoutes);
 app.use("/enroll", enrollRoutes);
+app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello");
