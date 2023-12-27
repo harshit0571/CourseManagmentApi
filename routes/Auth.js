@@ -10,13 +10,23 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   await connectToDB();
   console.log("ddd");
-  const { username, password } = req.body;
+  const { username, name, email, password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
-    await newUser.save();
-    res.status(201).json({ message: "User registered successfully." });
+    const user = await User.findOne({ username });
+    if (user) {
+      res.status(500).json({ message: "User already exists." });
+    } else {
+      const newUser = new User({
+        username,
+        email,
+        name,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      res.status(201).json({ message: "User registered successfully." });
+    }
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -35,7 +45,9 @@ router.post("/login", async (req, res) => {
     req.session.userId = user._id;
     res.json({ message: "Login successful." });
   } catch (error) {
-    res.status(500).json({ message: "Error during login." });
+    res.status(500).json({
+      message: "Error during login. please check username or password",
+    });
   }
 });
 
