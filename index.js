@@ -1,14 +1,17 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 const session = require("express-session");
 const authRoutes = require("./routes/Auth");
 const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
+
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(
   session({
