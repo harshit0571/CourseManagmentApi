@@ -13,12 +13,51 @@ const videoSchema = new mongoose.Schema({
   },
 });
 
+const QuestionSchema = new mongoose.Schema({
+  questionText: {
+    type: String,
+    required: true,
+  },
+  questionType: {
+    type: String,
+    enum: ["MCQ", "SubmissionLink"],
+    required: true,
+  },
+  options: {
+    type: [String],
+    required: function () {
+      return this.questionType === "MCQ";
+    },
+  },
+  correctAnswer: {
+    type: String,
+    required: function () {
+      return this.questionType === "MCQ";
+    },
+  },
+  submissionLink: {
+    type: String,
+    required: function () {
+      return this.questionType === "SubmissionLink";
+    },
+  },
+});
+
+const AssignmentSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  questions: [QuestionSchema],
+});
+
 const moduleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
   videos: [videoSchema],
+  assignments: [AssignmentSchema],
 });
 
 const courseSchema = new mongoose.Schema({

@@ -17,5 +17,32 @@
       "title": "objects",
       "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
     }
+  ],
+  "assignmentTitle": "Data types",
+  "category": "MCQ",
+  "questions": [
+    {
+      "questionText": "What is the data type of 'true' in JavaScript?",
+      "questionType": "MCQ",
+      "options": ["String", "Boolean", "Number", "Undefined"],
+      "correctAnswer": "Boolean"
+    },
+    {
+      "questionText": "Which method is used to add new items to the end of an array?",
+      "questionType": "MCQ",
+      "options": [".push()", ".pop()", ".shift()", ".unshift()"],
+      "correctAnswer": ".push()"
+    },
+    {
+      "questionText": "What does the method 'toUpperCase()' do in JavaScript?",
+      "questionType": "MCQ",
+      "options": [
+        "Converts a string to lowercase",
+        "Converts a string to uppercase",
+        "Converts a string to title case",
+        "Converts a string to a number"
+      ],
+      "correctAnswer": "Converts a string to uppercase"
+    }
   ]
 }
