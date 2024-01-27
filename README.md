@@ -1,4 +1,4 @@
-# API Endpoints 
+# API Endpoints
 
 ## Authentication
 
@@ -15,6 +15,7 @@
     "email":"example_email"
     "password": "secretpassword"
   }
+  ```
 
 ### login a user
 
@@ -27,7 +28,7 @@
     "username": "example_user",
     "password": "secretpassword"
   }
-
+  ```
 
 ## Courses
 
@@ -39,11 +40,12 @@
 - **Request Body**:
   ```json
   {
-   "title": "python", 
-   "description": "python course for beginers",
-   "instructor": "Harshit Chadha",
-   "duration": 10
+    "title": "python",
+    "description": "python course for beginers",
+    "instructor": "Harshit Chadha",
+    "duration": 10
   }
+  ```
 
 ### Add modules and videos to the course
 
@@ -53,26 +55,27 @@
 - **Request Body**:
   ```json
   {
-  "moduleTitle": "week 1",
-  "videosArray": [
-    {
-      "title": "data types",
-      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
-    },
-    {
-      "title": "arrays",
-      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
-    },
-    {
-      "title": "string",
-      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
-    },
-    {
-      "title": "objects",
-      "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
-    }
-  ]
+    "moduleTitle": "week 1",
+    "videosArray": [
+      {
+        "title": "data types",
+        "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+      },
+      {
+        "title": "arrays",
+        "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+      },
+      {
+        "title": "string",
+        "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+      },
+      {
+        "title": "objects",
+        "url": "https://www.youtube.com/watch?v=zOjov-2OZ0E&pp=ygUSY291cnNlIHByb2dyYW1taW5n"
+      }
+    ]
   }
+  ```
 
 ### get all courses
 
@@ -86,7 +89,6 @@
 - **Method**: `GET`
 - **Description**: Get specific course with course id.
 
-
 ## User
 
 ### get a user's details
@@ -95,12 +97,10 @@
 - **Method**: `GET`
 - **Description**: get user's details like name, email, and enrolled courses by sending username.
 
-
 ## Enroll
 
 ### Enroll in a course
 
-- **Endpoint**: `/auth/register`
+- **Endpoint**: `/enroll/:courseId`
 - **Method**: `POST`
 - **Description**: Enroll in a course by sending courseID in params.
-
