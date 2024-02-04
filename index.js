@@ -23,8 +23,9 @@ app.use(
     secret: process.env.ENCRYPTION_KEY,
     resave: false,
     saveUninitialized: true,
+    proxy: true,
     name: "MyCoolWebAppCookieName",
-    cookie: { httpOnly: true, secure: true },
+    cookie: { httpOnly: false, secure: true, sameSite: "none" },
   })
 );
 

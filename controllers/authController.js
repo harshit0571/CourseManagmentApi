@@ -44,7 +44,7 @@ exports.loginUser = async (req, res) => {
 
     req.session.user = user;
     req.session.save();
-
+    console.log(req.sessionID);
     res.json({ message: "Login successful." });
   } catch (error) {
     res.status(500).json({
@@ -56,6 +56,8 @@ exports.loginUser = async (req, res) => {
 
 exports.isLoggedIn = (req, res) => {
   console.log(res.session);
+  console.log(req.sessionID);
+
   if (req.session.user) {
     const { user } = req.session;
     res.status(200).json({ message: "User is logged in", user });
