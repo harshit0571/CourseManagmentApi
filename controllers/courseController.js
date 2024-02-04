@@ -63,7 +63,8 @@ exports.getCourseById = async (req, res) => {
 exports.addModuleToCourse = async (req, res) => {
   await connectToDB();
   const courseId = req.params.courseId;
-  const { moduleTitle, videosArray, assignmentTitle, questions } = req.body;
+  console.log(courseId);
+  const { moduleTitle, videosArray, assignments } = req.body;
 
   try {
     const course = await Course.findById(courseId);
@@ -77,26 +78,28 @@ exports.addModuleToCourse = async (req, res) => {
       videos: videosArray,
     };
 
-    if (assignmentTitle && questions) {
-      const newAssignment = {
-        title: assignmentTitle,
-        questions: questions,
-      };
-      newModule.assignments = [newAssignment];
+    console.log(assignments);
+    console.log(videosArray);
+    console.log(moduleTitle);
+
+    if (assignments) {
+      const newAssignment = assignments;
+      newModule.assignments = newAssignment;
     }
 
     course.modules.push(newModule);
 
     await course.save();
-
-    res.status(201).json({
+    console.log(course);
+    res.json({
       message: "Module with video and/or assignment added successfully",
       course,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Error adding module with video and/or assignment",
-      error: error.message,
-    });
+    // res.status(500).json({
+    //   message: "Error adding module with video and/or assignment",
+    //   error: error,
+    // });
+    res.send(error);
   }
 };
