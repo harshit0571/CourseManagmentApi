@@ -23,6 +23,7 @@ app.use(
     secret: process.env.ENCRYPTION_KEY,
     resave: false,
     saveUninitialized: true,
+    name: "MyCoolWebAppCookieName",
     cookie: { httpOnly: true, secure: true },
   })
 );
