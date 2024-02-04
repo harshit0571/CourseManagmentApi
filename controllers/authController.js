@@ -43,6 +43,8 @@ exports.loginUser = async (req, res) => {
     }
 
     req.session.user = user;
+    req.session.save();
+
     res.json({ message: "Login successful." });
   } catch (error) {
     res.status(500).json({
@@ -53,10 +55,19 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.isLoggedIn = (req, res) => {
-  if (req.session.userId) {
+  console.log(res.session);
+  if (req.session.user) {
     const { user } = req.session;
     res.status(200).json({ message: "User is logged in", user });
   } else {
     res.status(401).json({ message: "Not logged in" });
   }
+};
+
+exports.logout = async (req, res) => {
+  console.log("Before destroying session:", req.session);
+  await req.session.destroy();
+
+  console.log("After destroying session:", req.session);
+  res.send("Logged out");
 };

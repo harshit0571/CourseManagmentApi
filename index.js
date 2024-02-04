@@ -7,19 +7,22 @@ const authRoutes = require("./routes/Auth");
 const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
+const bodyParser = require("body-parser");
 const cookieparser = require("cookie-parser");
 
 dotenv.config();
 
 const app = express();
 app.use(cookieparser());
-app.use(cors({ credentials: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(
   session({
     secret: process.env.ENCRYPTION_KEY,
     resave: false,
     saveUninitialized: true,
+    cookie: { sameSite: "strict", secure: false },
   })
 );
 
@@ -29,7 +32,6 @@ app.use("/auth", authRoutes);
 app.use("/course", courseRoutes);
 app.use("/enroll", enrollRoutes);
 app.use("/user", userRoutes);
-
 app.get("/", (req, res) => {
   res.send("hello");
 });
