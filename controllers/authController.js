@@ -60,7 +60,7 @@ exports.isLoggedIn = (req, res) => {
     const { user } = req.session;
     res.status(200).json({ message: "User is logged in", user });
   } else {
-    res.status(401).json({ message: "Not logged in" });
+    res.json({ message: "Not logged in" });
   }
 };
 

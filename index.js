@@ -17,6 +17,7 @@ app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
+app.enable("trust proxy");
 app.use(
   session({
     secret: process.env.ENCRYPTION_KEY,
