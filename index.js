@@ -25,7 +25,11 @@ app.use(
     saveUninitialized: true,
     // proxy: true,
     name: "MyCoolWebAppCookieName",
-    cookie: { httpOnly: false, secure: false, sameSite: "none" },
+    cookie: {
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60 * 60 * 24 * 2,
+    },
   })
 );
 
