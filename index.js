@@ -23,7 +23,7 @@ app.use(
     secret: process.env.ENCRYPTION_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { sameSite: "none", secure: false },
+    cookie: { httpOnly: true, secure: true },
   })
 );
 
