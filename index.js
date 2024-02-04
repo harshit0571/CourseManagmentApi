@@ -7,11 +7,13 @@ const authRoutes = require("./routes/Auth");
 const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
+const cookieparser = require("cookie-parser");
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cookieparser());
+app.use(cors({ credentials: true }));
 app.use(express.json());
 app.use(
   session({

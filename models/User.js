@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
       ref: "Course",
     },
   ],
+  //progress
+  
 });
 
 const User = mongoose.model("User", userSchema);
