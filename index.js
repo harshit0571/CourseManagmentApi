@@ -15,12 +15,13 @@ dotenv.config();
 const app = express();
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: "https://admin-panel-course-managment.vercel.app",
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://admin-panel-course-managment.vercel.app",
+];
+
+// Configure CORS to allow requests from the allowed origins
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 // app.enable("trust proxy");
 app.use(
