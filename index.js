@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const allowedOrigins = [
   "http://localhost:3000",
   "https://admin-panel-course-managment.vercel.app",
+  "https://power-bi-assured.vercel.app",
 ];
 
 // Configure CORS to allow requests from the allowed origins
