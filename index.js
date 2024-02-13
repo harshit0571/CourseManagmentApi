@@ -7,6 +7,8 @@ const authRoutes = require("./routes/Auth");
 const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
+const resourceRoutes = require("./routes/Resource");
+
 const bodyParser = require("body-parser");
 const cookieparser = require("cookie-parser");
 
@@ -46,6 +48,8 @@ app.use("/auth", authRoutes);
 app.use("/course", courseRoutes);
 app.use("/enroll", enrollRoutes);
 app.use("/user", userRoutes);
+app.use("/resource", resourceRoutes);
+
 app.get("/", (req, res) => {
   res.send("hello");
 });
