@@ -8,6 +8,7 @@ const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
 const resourceRoutes = require("./routes/Resource");
+const payRoutes = require("./routes/phonePay");
 
 const bodyParser = require("body-parser");
 const cookieparser = require("cookie-parser");
@@ -21,6 +22,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://admin-panel-course-managment.vercel.app",
   "https://power-bi-assured.vercel.app",
+  "https://power-bi-eta.vercel.app/",
 ];
 
 // Configure CORS to allow requests from the allowed origins
@@ -49,6 +51,7 @@ app.use("/course", courseRoutes);
 app.use("/enroll", enrollRoutes);
 app.use("/user", userRoutes);
 app.use("/resource", resourceRoutes);
+app.use("/pay", payRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello");
