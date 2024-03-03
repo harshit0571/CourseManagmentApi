@@ -9,6 +9,7 @@ const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
 const resourceRoutes = require("./routes/Resource");
 const payRoutes = require("./routes/phonePay");
+const contactRoutes = require("./routes/Contact");
 
 const bodyParser = require("body-parser");
 const cookieparser = require("cookie-parser");
@@ -52,6 +53,7 @@ app.use("/enroll", enrollRoutes);
 app.use("/user", userRoutes);
 app.use("/resource", resourceRoutes);
 app.use("/pay", payRoutes);
+app.use("/contact", contactRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello");
