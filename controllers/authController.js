@@ -5,7 +5,7 @@ const { connectToDB } = require("../utils/database");
 // Controller function to handle user registration
 exports.registerUser = async (req, res) => {
   await connectToDB();
-  const { username, name, password } = req.body;
+  const { username, name, password, email } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,6 +19,7 @@ exports.registerUser = async (req, res) => {
       username,
       name,
       password: hashedPassword,
+      email,
     });
     await newUser.save();
 
