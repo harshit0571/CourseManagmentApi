@@ -78,6 +78,14 @@ const courseSchema = new mongoose.Schema({
     required: true,
   },
   modules: [moduleSchema],
+  img: {
+    type: String,
+    required: false,
+  },
+  resources: {
+    type: [String],
+    required: false,
+  },
 });
 
 const Course = mongoose.model("Course", courseSchema);

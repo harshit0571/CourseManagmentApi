@@ -3,7 +3,7 @@ const { connectToDB } = require("../utils/database");
 
 // Controller function to create a new course
 exports.createCourse = async (req, res) => {
-  const { title, description, instructor, duration } = req.body;
+  const { title, description, instructor, duration, img } = req.body;
   await connectToDB();
 
   try {
@@ -12,6 +12,7 @@ exports.createCourse = async (req, res) => {
       description,
       instructor,
       duration,
+      img,
     });
 
     await newCourse.save();
@@ -101,5 +102,36 @@ exports.addModuleToCourse = async (req, res) => {
     //   error: error,
     // });
     res.send(error);
+  }
+};
+
+// Controller for adding resources to a course
+exports.addResourceToCourse = async (req, res) => {
+  await connectToDB();
+  const courseId = req.params.courseId;
+  console.log(courseId);
+  const { resources } = req.body;
+
+  try {
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // Add the resources to the course
+    course.resources = resources;
+
+    await course.save();
+    console.log(course);
+    res.json({
+      message: "Resources added to the course successfully",
+      course,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error adding resources to the course",
+      error: error,
+    });
   }
 };
