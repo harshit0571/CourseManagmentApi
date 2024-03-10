@@ -1,102 +1,49 @@
-const crypto = require("crypto");
-const axios = require("axios");
+// const Razorpay = require("razorpay");
 
-const newPayment = async (req, res) => {
-  try {
-    const merchantTransactionId = req.body.transactionId;
-    const data = {
-      merchantId: process.env.merchant_id,
-      merchantTransactionId: merchantTransactionId,
-      merchantUserId: req.body.MUID,
-      name: req.body.name,
-      amount: req.body.amount * 100,
-      redirectUrl: `http://localhost:9000/pay/status/${merchantTransactionId}`,
-      redirectMode: "POST",
-      mobileNumber: req.body.number,
-      paymentInstrument: {
-        type: "PAY_PAGE",
-      },
-    };
-    const payload = JSON.stringify(data);
-    const payloadMain = Buffer.from(payload).toString("base64");
-    const keyIndex = 1;
-    const string = payloadMain + "/pg/v1/pay" + process.env.salt_key;
-    const sha256 = crypto.createHash("sha256").update(string).digest("hex");
-    const checksum = sha256 + "###" + keyIndex;
+// const razorpay = new Razorpay({
+//   key_id: "YOUR_KEY_ID",
+//   key_secret: "YOUR_KEY_SECRET",
+// });
 
-    const prod_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
-    const options = {
-      method: "POST",
-      url: prod_URL,
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        "X-VERIFY": checksum,
-      },
-      data: {
-        request: payloadMain,
-      },
-    };
+// const initiatePayment = async (req, res) => {
+//   const options = {
+//     amount: 50000, // amount in the smallest currency unit (in this case, paise)
+//     currency: "INR",
+//     receipt: "order_rcptid_11",
+//     payment_capture: "1",
+//   };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-        return res.redirect(
-          response.data.data.instrumentResponse.redirectInfo.url
-        );
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  } catch (error) {
-    res.status(500).send({
-      message: error.message,
-      success: false,
-    });
-  }
-};
+//   try {
+//     const order = await razorpay.orders.create(options);
+//     res.json(order);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-const checkStatus = async (req, res) => {
-  const merchantTransactionId = res.req.body.transactionId;
-  const merchantId = res.req.body.merchantId;
+// const handlePaymentSuccess = (req, res) => {
+//   const body = req.body;
+//   const razorpay_signature = req.headers["x-razorpay-signature"];
 
-  const keyIndex = 1;
-  const string =
-    `/pg/v1/status/${merchantId}/${merchantTransactionId}` +
-    process.env.salt_key;
-  const sha256 = crypto.createHash("sha256").update(string).digest("hex");
-  const checksum = sha256 + "###" + keyIndex;
+//   // Verify signature
+//   const isValidSignature = razorpay.webhooks.verifySignature(
+//     JSON.stringify(body),
+//     razorpay_signature,
+//     "YOUR_WEBHOOK_SECRET"
+//   );
 
-  const options = {
-    method: "GET",
-    url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
-    headers: {
-      accept: "application/json",
-      "Content-Type": "application/json",
-      "X-VERIFY": checksum,
-      "X-MERCHANT-ID": `${merchantId}`,
-    },
-  };
+//   if (isValidSignature) {
+//     // Payment success
+//     console.log("Payment successful");
+//     res.status(200).send("Payment successful");
+//   } else {
+//     // Invalid signature
+//     console.log("Invalid signature");
+//     res.status(400).send("Invalid signature");
+//   }
+// };
 
-  // CHECK PAYMENT TATUS
-  axios
-    .request(options)
-    .then(async (response) => {
-      if (response.data.success === true) {
-        const url = `http://localhost:9000/success`;
-        return res.redirect(url);
-      } else {
-        const url = `http://localhost:9000/failure`;
-        return res.redirect(url);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-module.exports = {
-  newPayment,
-  checkStatus,
-};
+// module.exports = {
+//   initiatePayment,
+//   handlePaymentSuccess,
+// };

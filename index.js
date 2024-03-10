@@ -8,7 +8,7 @@ const courseRoutes = require("./routes/Course");
 const enrollRoutes = require("./routes/Enroll");
 const userRoutes = require("./routes/User");
 const resourceRoutes = require("./routes/Resource");
-const payRoutes = require("./routes/phonePay");
+const payRoutes = require("./routes/Payment");
 const contactRoutes = require("./routes/Contact");
 
 const bodyParser = require("body-parser");
