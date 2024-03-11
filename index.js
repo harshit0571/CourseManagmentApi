@@ -31,7 +31,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: allowedOrigins,
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 app.use(express.json());
