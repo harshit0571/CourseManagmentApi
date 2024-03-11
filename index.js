@@ -28,7 +28,13 @@ const allowedOrigins = [
 ];
 
 // Configure CORS to allow requests from the allowed origins
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  })
+);
 app.use(express.json());
 // app.enable("trust proxy");
 app.use(
