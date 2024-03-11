@@ -31,7 +31,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: allowedOrigins,
-    credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
