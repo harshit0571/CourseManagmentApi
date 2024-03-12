@@ -2,18 +2,18 @@ const mongoose = require("mongoose");
 
 const courseProgressSchema = new mongoose.Schema({
   courseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Course",
+    type: String,
+    // ref: "Course",
     required: true,
   },
-  progress: [
-    {
-      type: Number,
-      default: 0,
-      min: 0,
-      max: 100,
-    },
-  ],
+  // progress: [
+  //   {
+  //     type: Number,
+  //     default: 0,
+  //     min: 0,
+  //     max: 100,
+  //   },
+  // ],
 });
 
 const userSchema = new mongoose.Schema({
