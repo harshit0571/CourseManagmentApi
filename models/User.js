@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const courseProgressSchema = new mongoose.Schema({
   courseId: {
     type: String,
-    // ref: "Course",
     required: true,
   },
   // progress: [
@@ -21,6 +20,8 @@ const userSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true },
   password: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   selectedCourses: [courseProgressSchema],
 });
 

@@ -12,4 +12,8 @@ router.get("/check-login", authController.isLoggedIn);
 
 router.get("/logout", authController.logout);
 
+router.post("/forget", authController.forgotPassword);
+
+router.post("/updatepassword", authController.updatePassword);
+
 module.exports = router;

@@ -37,8 +37,8 @@ exports.enrollInCourse = async (req, res) => {
     }
 
     // Enroll the user in the course
-    const Selected = { courseId: courseId };
-    user.selectedCourses.push(Selected);
+
+    user.selectedCourses.push(courseId);
 
     // Save the updated user to the database
     await user.save();
