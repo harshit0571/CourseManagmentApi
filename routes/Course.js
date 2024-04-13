@@ -12,4 +12,10 @@ router.post(
   courseController.addMCQsToAssignment
 );
 
+// DELETE assignments
+router.delete(
+  "/:courseId/modules/:moduleId/assignments",
+  courseController.deleteFirstAssignment
+);
+
 module.exports = router;

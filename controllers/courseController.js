@@ -183,31 +183,34 @@ exports.addModuleToCourse = async (req, res) => {
 exports.addMCQsToAssignment = async (req, res) => {
   await connectToDB();
   const courseId = req.params.courseId;
-  const moduleId = req.params.moduleId; // Assuming you have moduleId in your route
-  const assignmentIndex = req.params.assignmentIndex; // Assuming you have assignmentIndex in your route
-  const mcqsData = req.body.mcqsData; // Assuming mcqsData is an array of MCQs
-  console.log(mcqsData);
+  const moduleId = req.params.moduleId;
+  const assignmentIndex = req.params.assignmentIndex;
+  const mcqsData = req.body.mcqsData;
 
   try {
     const course = await Course.findById(courseId);
-    console.log(course);
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
 
     const module = course.modules.id(moduleId);
-    console.log(module);
 
     if (!module) {
       return res.status(404).json({ message: "Module not found" });
     }
+    console.log(module);
 
-    const assignment = module.assignments[assignmentIndex];
-    console.log(assignment);
+    let assignment = module.assignments[assignmentIndex];
+
+    // If assignment doesn't exist, create a new one
     if (!assignment) {
-      return res.status(404).json({ message: "Assignment not found" });
+      assignment = { title: " Assignment", type: "MCQ", questions: [] };
+      module.assignments.push(assignment);
     }
+
+    console.log(assignment);
+    console.log(mcqsData);
 
     // Iterate over each MCQ in mcqsData array
     mcqsData.forEach((mcqData) => {
@@ -232,5 +235,49 @@ exports.addMCQsToAssignment = async (req, res) => {
       message: "Error adding MCQs to assignment",
       error: error.message,
     });
+  }
+};
+
+exports.deleteFirstAssignment = async (req, res) => {
+  await connectToDB();
+  try {
+    // Retrieve the course ID and module ID from request parameters
+    const { courseId, moduleId } = req.params;
+
+    // Find the course by ID
+    const course = await Course.findById(courseId);
+
+    // Check if the course exists
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // Find the module by ID
+    const module = course.modules.id(moduleId);
+
+    // Check if the module exists
+    if (!module) {
+      return res.status(404).json({ message: "Module not found" });
+    }
+
+    // Check if the module has assignments
+    if (module.assignments.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No assignments found in the module" });
+    }
+
+    // Remove the 0th assignment from the module's assignments array
+    module.assignments.shift();
+
+    // Save the updated course
+    await course.save();
+
+    // Return a success response
+    res.json({ message: "First assignment deleted successfully" });
+  } catch (error) {
+    // Handle errors
+    console.error("Error deleting first assignment:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
