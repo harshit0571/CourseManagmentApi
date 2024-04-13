@@ -29,6 +29,8 @@ router.post("/order/validate", async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
 
+  console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature);
+
   const sha = crypto.createHmac("sha256", process.env.KEY_SECRET);
   //order_id + "|" + razorpay_payment_id
   sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
