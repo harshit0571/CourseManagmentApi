@@ -18,4 +18,13 @@ router.delete(
   courseController.deleteFirstAssignment
 );
 
+router.post(
+  "/:courseId/:moduleId/videos/add",
+  courseController.addVideosToModule
+);
+// DELETE videos
+router.delete(
+  "/:courseId/:moduleId/videos/delete",
+  courseController.deleteAllVideosFromModule
+);
 module.exports = router;

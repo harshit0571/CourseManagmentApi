@@ -281,3 +281,90 @@ exports.deleteFirstAssignment = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.addVideosToModule = async (req, res) => {
+  await connectToDB();
+  const courseId = req.params.courseId;
+  const moduleId = req.params.moduleId;
+  const videosData = req.body.videosData;
+  console.log(videosData);
+
+  try {
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    const module = course.modules.id(moduleId);
+    console.log(module);
+
+    if (!module) {
+      return res.status(404).json({ message: "Module not found" });
+    }
+
+    // Iterate over each video in videosData array
+    videosData.forEach((videoData) => {
+      const { title, url } = videoData;
+
+      const newVideo = {
+        title,
+        url,
+      };
+
+      module.videos.push(newVideo);
+    });
+
+    await course.save();
+
+    res.json({ message: "Videos added to module successfully", course });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error adding videos to module",
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteAllVideosFromModule = async (req, res) => {
+  await connectToDB();
+  try {
+    // Retrieve the course ID and module ID from request parameters
+    const { courseId, moduleId } = req.params;
+
+    // Find the course by ID
+    const course = await Course.findById(courseId);
+
+    // Check if the course exists
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // Find the module by ID
+    const module = course.modules.id(moduleId);
+
+    // Check if the module exists
+    if (!module) {
+      return res.status(404).json({ message: "Module not found" });
+    }
+
+    // Check if the module has videos
+    if (module.videos.length === 0) {
+      return res.status(404).json({ message: "No videos found in the module" });
+    }
+
+    // Remove all videos from the module's videos array
+    module.videos = [];
+
+    // Save the updated course
+    await course.save();
+
+    // Return a success response
+    res.json({ message: "All videos deleted from the module successfully" });
+  } catch (error) {
+    // Handle errors
+    console.error("Error deleting all videos from module:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
