@@ -7,5 +7,9 @@ router.get("/", courseController.getAllCourses);
 router.get("/:courseId", courseController.getCourseById);
 router.post("/:courseId/modules", courseController.addModuleToCourse);
 router.post("/:courseId/resources", courseController.addResourceToCourse);
+router.post(
+  "/:courseId/:moduleId/:assignmentIndex",
+  courseController.addMCQsToAssignment
+);
 
 module.exports = router;
